@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Swiss Smartphone Datacenter · organisation</title>
+<meta name="description" content="Swiss Smartphone Datacenter : découpage du travail et organisation du groupe de huit, Gestion de projet avancée, MSE HES-SO 2026-27.">
+<script>
+  (function (d) {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    d.classList.add('motion');
+    setTimeout(function () { if (!window.pageReady) d.classList.remove('motion'); }, 2000);
+  })(document.documentElement);
+</script>
+<style>
+  :root {
+    --paper: #fbfbf9;
+    --ink: #1c1f24;
+    --muted: #5d636b;
+    --line: #c9ccd0;
+    --soft: #eceeec;
+    --red: #d52b1e;
+    --green: #2f8f5b;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --gutter: 16px;
+    --measure: 44rem;
+    --wide: 68rem;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html {
+    background: var(--paper);
+    font-size: clamp(16px, 0.42vw + 13px, 21px);
+    scroll-padding-top: 3.4rem;
+  }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-wrap: break-word;
+  }
+  .wrap {
+    max-width: calc(var(--measure) + 2 * var(--gutter));
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  .wrap.wide { max-width: calc(var(--wide) + 2 * var(--gutter)); }
+  @media (min-width: 700px) { :root { --gutter: 32px; } }
+
+  a { color: var(--ink); text-decoration-color: var(--red); text-underline-offset: 0.18em; text-decoration-thickness: 1.5px; }
+  a:hover { color: var(--red); }
+  strong { font-weight: 650; }
+  p { margin: 0 0 1em; }
+  ul, ol { margin: 0 0 1em; padding-left: 1.2em; }
+  li { margin: 0 0 0.55em; }
+  li::marker { color: var(--muted); }
+  .vrf { white-space: nowrap; font-size: 0.78em; color: var(--muted); border: 1px dashed var(--line); border-radius: 4px; padding: 0 0.3em; }
+
+  /* Header */
+  header.top { padding: 2.2rem 0 1.6rem; border-bottom: 1px solid var(--line); }
+  .brand {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-size: 0.95rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .brand svg { width: 2.4rem; height: 2.4rem; flex: none; }
+  .brand .dc { color: var(--red); }
+  .kicker { margin: 0.9rem 0 0; color: var(--muted); font-size: 0.85rem; }
+  .badge {
+    display: inline-block; margin-top: 0.9rem;
+    padding: 0.2rem 0.65rem; border: 1px solid var(--line); border-radius: 999px;
+    font-size: 0.78rem; color: var(--muted); background: #fff;
+  }
+  h1 {
+    margin: 1.6rem 0 0.8rem;
+    font-size: clamp(1.6rem, 3.2vw + 0.6rem, 2.3rem);
+    line-height: 1.2; font-weight: 700; letter-spacing: -0.01em;
+  }
+  .lead { font-size: 1.05rem; color: var(--ink); max-width: 38rem; }
+
+  /* Nav */
+  nav.toc {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(251, 251, 249, 0.95);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.toc ul {
+    display: flex; gap: 0 1.1rem; margin: 0; padding: 0.55rem 0; list-style: none;
+    overflow-x: auto; white-space: nowrap; scrollbar-width: none;
+    font-size: 0.8rem;
+  }
+  nav.toc ul::-webkit-scrollbar { display: none; }
+  nav.toc li { margin: 0; }
+  nav.toc a { text-decoration: none; color: var(--muted); }
+  nav.toc a:hover, nav.toc a.on { color: var(--ink); text-decoration: underline; text-decoration-color: var(--red); }
+
+  /* Sections */
+  section > .wrap { padding-top: 2.4rem; padding-bottom: 0.6rem; }
+  section + section > .wrap::before {
+    content: ""; display: block; height: 1px; background: var(--soft); margin: -2.4rem 0 2.4rem;
+  }
+  h2 {
+    margin: 0 0 1rem;
+    font-size: 1.35rem; line-height: 1.25; font-weight: 700;
+  }
+  h2::before {
+    content: ""; display: block; width: 1.6rem; height: 3px; background: var(--red);
+    margin-bottom: 0.7rem; border-radius: 2px;
+  }
+  h3 { margin: 1.6rem 0 0.6rem; font-size: 1.05rem; line-height: 1.3; font-weight: 650; }
+  .narrow { max-width: var(--measure); margin: 0 auto; }
+
+  /* Figures */
+  figure { margin: 1.6rem 0 1.8rem; }
+  figure svg { display: block; width: 100%; height: auto; }
+  @media (max-width: 560px) { .tl text { font-size: 22px; } }
+  figcaption { margin-top: 0.6rem; font-size: 0.85rem; color: var(--muted); text-align: center; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 0.4rem 0 1.4rem; font-size: 0.92rem; }
+  th, td { text-align: left; vertical-align: top; padding: 0.65rem 0.7rem 0.65rem 0; border-bottom: 1px solid var(--soft); }
+  th { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
+  td:first-child { font-weight: 600; width: 34%; }
+  @media (max-width: 560px) {
+    table.stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    table.stack, table.stack tbody, table.stack tr, table.stack td { display: block; width: 100%; }
+    table.stack tr { padding: 0.7rem 0; border-bottom: 1px solid var(--soft); }
+    table.stack td { border: 0; padding: 0; }
+    table.stack td:first-child { width: auto; margin-bottom: 0.2rem; }
+  }
+
+  /* RACI matrix */
+  table.raci { font-size: 0.85rem; table-layout: fixed; }
+  table.raci th, table.raci td { padding: 0.45rem 0.3rem; text-align: center; vertical-align: middle; }
+  table.raci th:first-child, table.raci td:first-child { text-align: left; width: 38%; }
+  table.raci td:first-child { font-weight: 600; }
+  table.raci td:first-child small { display: block; font-weight: 400; color: var(--muted); font-size: 0.8em; line-height: 1.3; }
+  table.raci th { letter-spacing: 0.02em; font-size: 0.7rem; }
+  .l { display: inline-block; min-width: 1.9em; padding: 0.1em 0.3em; border-radius: 5px; font-weight: 650; font-size: 0.9em; }
+  .l.a { background: var(--ink); color: #fff; }
+  .l.r { border: 1.5px solid var(--ink); }
+  .l.c { background: var(--soft); color: var(--ink); }
+  .l.i { color: var(--muted); }
+  table.raci .sm { display: none; }
+  @media (max-width: 560px) {
+    table.raci .lg { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    table.raci .sm { display: inline; }
+  }
+  .dep-narrow { display: none; }
+  @media (max-width: 560px) {
+    .dep-wide { display: none; }
+    .dep-narrow { display: block; max-width: 22rem; margin: 0 auto; }
+  }
+  dl.keys { display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 0.8rem; margin: 0 0 1.4rem; font-size: 0.92rem; }
+  dl.keys dt { margin: 0; }
+  dl.keys dd { margin: 0; }
+
+  /* Silo markers (DA palette only) */
+  .pole { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+  .pole::before { content: ""; width: 0.6em; height: 0.6em; border-radius: 50%; background: var(--pc, var(--muted)); }
+  .p-pil { --pc: var(--ink); }
+  .p-tec { --pc: var(--red); }
+  .p-ter { --pc: var(--green); }
+  .p-bus { --pc: var(--muted); }
+  .p-sha { --pc: transparent; }
+  .p-sha.pole::before { border: 1.5px dashed var(--muted); }
+
+  /* Silo cards */
+  .silos { display: grid; grid-template-columns: 1fr; gap: 1.1rem; margin: 1.4rem 0 1rem; align-items: start; }
+  @media (min-width: 1000px) { .silos { grid-template-columns: 1fr 1fr; } }
+  .silo {
+    position: relative; background: #fff; border: 1px solid var(--line); border-radius: 12px;
+    padding: 1.1rem 1.15rem 0.6rem; overflow: hidden; font-size: 0.92rem;
+  }
+  .silo::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--pc); }
+  .silo.p-sha::before { background: none; border-top: 3px dashed var(--line); height: 0; }
+  .silo .head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.6rem; }
+  .silo .num { margin: 0; font-size: 1.25rem; font-weight: 750; letter-spacing: -0.01em; line-height: 1.25; }
+  .silo .mission { margin-top: 0.6rem; }
+  .chantiers { margin: 0.4rem 0 0.2rem; }
+  .chantier { margin: 0 0 0.8rem; padding: 0.75rem 0.85rem 0.2rem; border: 1px solid var(--soft); border-radius: 9px; background: var(--paper); break-inside: avoid; }
+  .chantier.crit { border-color: rgba(213, 43, 30, 0.35); }
+  .chantier h4 { margin: 0 0 0.4rem; font-size: 0.98rem; font-weight: 650; }
+  .chantier.crit h4 { color: var(--red); }
+  .chantier p { margin: 0 0 0.45rem; }
+  .chantier ul { margin: 0 0 0.55rem; }
+  .chantier li { margin-bottom: 0.25rem; }
+  table.raci tr.grp td { text-align: left; font-weight: 650; font-size: 0.8rem; padding-top: 0.9rem; color: var(--muted); border-bottom: 1px solid var(--line); }
+  .silo h3 { margin: 0.5rem 0 0.5rem; font-size: 1.08rem; }
+  .silo .mission { margin-bottom: 0.8rem; }
+  .silo dl { margin: 0; }
+  .silo dt { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin: 0.8rem 0 0.25rem; }
+  .silo dd { margin: 0; }
+  .silo dd ul, .silo dd ol { margin: 0 0 0.3rem; }
+  .silo dd li { margin-bottom: 0.3rem; }
+  .silo .rule { margin: 0.8rem 0 0.4rem; padding: 0.55rem 0.7rem; background: var(--soft); border-radius: 8px; }
+  .silo .links { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; }
+  .silo .links span b { font-weight: 650; }
+
+  /* Group cards */
+  .poles { display: grid; grid-template-columns: 1fr; gap: 0.8rem; margin: 1.2rem 0 1.6rem; }
+  @media (min-width: 700px) { .poles { grid-template-columns: 1fr 1fr; } }
+  .poles > div { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 0.8rem 0.95rem 0.3rem; font-size: 0.92rem; }
+  .poles h3 { margin: 0.35rem 0 0.4rem; font-size: 1rem; }
+
+  /* Tools, rules */
+  .tool { margin: 1.2rem 0; padding: 1rem 1.1rem 0.4rem; border-radius: 12px; border: 2px solid var(--ink); background: #fff; }
+  .tool h3 { margin-top: 0; }
+  .channels { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr; gap: 0.25rem 1rem; }
+  @media (min-width: 700px) { .channels { grid-template-columns: 1fr 1fr; } }
+  .channels code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.88em; font-weight: 600; }
+  .cols { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.2rem 0 1rem; padding: 0; list-style: none; }
+  .cols li { margin: 0; padding: 0.2rem 0.6rem; border: 1px solid var(--line); border-radius: 6px; font-size: 0.85rem; background: var(--paper); }
+  ol.rules { counter-reset: r; list-style: none; padding: 0; }
+  ol.rules > li { counter-increment: r; position: relative; padding-left: 2.2rem; margin-bottom: 1rem; }
+  ol.rules > li::before {
+    content: counter(r); position: absolute; left: 0; top: 0.05rem;
+    width: 1.5rem; height: 1.5rem; border-radius: 50%; border: 2px solid var(--ink);
+    font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Checklist */
+  ol.todo { list-style: none; padding: 0; counter-reset: t; }
+  ol.todo > li { counter-increment: t; position: relative; padding: 0.7rem 0 0.7rem 3rem; border-bottom: 1px solid var(--soft); margin: 0; }
+  ol.todo > li::before {
+    content: counter(t); position: absolute; left: 0; top: 0.65rem;
+    width: 1.6rem; height: 1.6rem; border: 2px solid var(--ink); border-radius: 5px;
+    font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+  ol.todo ul { margin: 0.4rem 0 0; }
+
+  /* Questions */
+  .open { padding-bottom: 2rem; }
+  .open li { margin-bottom: 0.9rem; }
+  .yours {
+    display: flex; align-items: flex-end; gap: 0.6rem;
+    margin: 2.4rem 0 0.4rem; font-weight: 600;
+  }
+  .yours .fill { flex: 1; border-bottom: 1.5px solid var(--ink); height: 1.2em; }
+  .yours-extra { border-bottom: 1.5px solid var(--line); height: 2.2rem; }
+
+  footer {
+    margin-top: 1.2rem; padding: 1.6rem 0 2.6rem; border-top: 1px solid var(--line);
+    font-size: 0.85rem; color: var(--muted);
+  }
+  footer p { margin: 0 0 0.3rem; }
+  footer strong { color: var(--ink); }
+
+  /* Reveal on scroll: armed only when motion is allowed */
+  html.motion .reveal { opacity: 0; transform: translateY(10px); }
+  html.motion .reveal.in { opacity: 1; transform: none; transition: opacity 320ms cubic-bezier(.16,1,.3,1), transform 320ms cubic-bezier(.16,1,.3,1); }
+  @media (prefers-reduced-motion: reduce) {
+    html.motion .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  @page { size: A4; margin: 16mm 16mm 18mm; }
+  @media print {
+    html { font-size: 10pt; background: #fff; }
+    body { background: #fff; }
+    nav.toc { display: none; }
+    html.motion .reveal, .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .wrap, .wrap.wide { max-width: none; padding: 0; }
+    header.top { padding-top: 0; }
+    section > .wrap { padding-top: 1.2rem; }
+    section + section > .wrap::before { margin: -1.2rem 0 1.2rem; }
+    h2, h3 { break-after: avoid; break-inside: avoid; }
+    figure, tr, .silo, .poles > div, .tool, ol.rules > li, ol.todo > li, .yours { break-inside: avoid; }
+    figure svg { max-height: 70mm; width: auto; max-width: 100%; margin: 0 auto; }
+    .narrow { max-width: none; margin: 0; }
+    table.raci { break-inside: avoid; }
+    .silos { display: block; }
+    .silo { display: block; overflow: visible; font-size: 0.8rem; line-height: 1.42; padding: 0.8rem 0.9rem 0.4rem; margin: 0 0 4mm; break-inside: avoid; page-break-inside: avoid; }
+    .silo .chantiers { columns: 2; column-gap: 5mm; }
+    .chantier { padding: 0.5rem 0.6rem 0.05rem; margin-bottom: 0.6rem; }
+    .silo dl { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 5mm; }
+    .silo dl dt { grid-row: 1; margin-top: 0.3rem; }
+    .silo dl dd { grid-row: 2; }
+    .silo .rule { margin: 0.4rem 0; }
+    .silo dt { break-after: avoid; }
+    .silo dt:first-child { margin-top: 0; }
+    .dep-narrow { display: none !important; }
+    .dep-wide { display: block !important; }
+    .open { break-before: page; }
+    a { text-decoration: none; }
+    a.src::after { content: " (" attr(href) ")"; font-size: 0.8em; color: var(--muted); }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  nav.site { border-bottom: 1px solid var(--line); font-size: 0.9rem; }
+  nav.site ul { list-style: none; margin: 0; padding: 0.7rem 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
+  nav.site li { margin: 0; }
+  nav.site a { color: var(--muted); text-decoration: none; }
+  nav.site a:hover { color: var(--ink); }
+  nav.site a[aria-current="page"] { color: var(--ink); font-weight: 600; text-decoration: underline; text-decoration-color: var(--red); text-underline-offset: 4px; }
+  @media print { nav.site { display: none; } }
+</style>
+</head>
+<body>
+
+<nav class="site" aria-label="Pages du projet">
+  <div class="wrap">
+    <ul>
+    <li><a href=".././">Pitch</a></li>
+    <li><a href="../discussion/">Discussion</a></li>
+    <li><a href="../organisation/" aria-current="page">Organisation</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="-190 -62 424 536" aria-hidden="true" stroke-linejoin="round" stroke-linecap="round"><rect x="-172.0" y="0" width="344" height="428" rx="30" fill="none" stroke="#1c1f24" stroke-width="24"/><path d="M-128.0 428 v28" stroke="#1c1f24" stroke-width="24"/><path d="M128.0 428 v28" stroke="#1c1f24" stroke-width="24"/><rect x="-100.0" y="46.0" width="200" height="88" rx="24" fill="#eceeec" stroke="#1c1f24" stroke-width="16"/><path d="M-70.0 73.0 V107.0" stroke="#1c1f24" stroke-width="13"/><circle cx="66.0" cy="90.0" r="13" fill="#2f8f5b"/><rect x="-100.0" y="170.0" width="200" height="88" rx="24" fill="#eceeec" stroke="#1c1f24" stroke-width="16"/><path d="M-70.0 197.0 V231.0" stroke="#1c1f24" stroke-width="13"/><circle cx="66.0" cy="214.0" r="13" fill="#2f8f5b"/><rect x="-100.0" y="294.0" width="200" height="88" rx="24" fill="#eceeec" stroke="#1c1f24" stroke-width="16"/><path d="M-70.0 321.0 V355.0" stroke="#1c1f24" stroke-width="13"/><circle cx="66.0" cy="338.0" r="13" fill="#2f8f5b"/><rect x="112.0" y="-48.0" width="108" height="108" rx="18" fill="#d52b1e" stroke="#fbfbf9" stroke-width="14"/><path d="M155.416 -26.4 H176.584 V-4.584 H198.4 V16.584 H176.584 V38.4 H155.416 V16.584 H133.6 V-4.584 H155.416 Z" fill="#ffffff"/></svg>
+      <span>Swiss Smartphone <span class="dc">Datacenter</span></span>
+    </div>
+    <p class="kicker">Le projet de nos rêves · Gestion de projet avancée · MSE HES-SO 2026-27</p>
+    <span class="badge">Plan de travail · 21.10.2026</span>
+
+    <h1>Comment on s'organise à huit.</h1>
+    <p class="lead">Cette page dit comment on travaille : quatre silos de deux personnes, trois outils et cinq règles. Chacun a choisi son silo au kickoff.</p>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sections">
+  <div class="wrap wide">
+    <ul>
+      <li><a href="#principe">Le principe</a></li>
+      <li><a href="#silos">Les quatre silos</a></li>
+      <li><a href="#equipe">Qui fait quoi</a></li>
+      <li><a href="#dependances">Les dépendances</a></li>
+      <li><a href="#outils">Les outils</a></li>
+      <li><a href="#regles">Les règles</a></li>
+      <li><a href="#calendrier">Le calendrier</a></li>
+      <li><a href="#etapes">Prochaines étapes</a></li>
+      <li><a href="#questions">Questions ouvertes</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+<section id="principe" class="reveal">
+  <div class="wrap">
+    <h2>Le principe</h2>
+    <p>On est huit, et on travaille en quatre silos de deux personnes. Chacun a choisi son silo au kickoff. À huit, le risque n'est pas de manquer de bras. Le risque, c'est de se marcher dessus : deux personnes qui écrivent à la même commune, ou un travail que tout le monde croit fait par quelqu'un d'autre. Chaque silo a donc son périmètre, ses chantiers et son salon, et on s'en tient à trois outils et cinq règles.</p>
+    <p>L'énoncé dit que le volume de travail attendu est proportionnel au nombre de personnes. Il parle d'environ 3 à 5 pages par personne. Notre rapport sera donc long, et il ne doit pas devenir un collage. Chaque silo écrit sa propre partie, et le silo Pilotage tient le fil rouge, c'est-à-dire l'histoire qui relie les parties du début à la fin.</p>
+    <p>Ce plan est aussi du matériel pour le rendu. Le critère 3 du prof porte sur l'organisation qu'on propose pour mener le projet. Les quatre silos et leurs chantiers sont le premier brouillon de notre OBS, l'organigramme du projet. La matrice qui dit qui fait quoi est le premier brouillon de notre RACI. On les améliorera en route, et on montrera dans le rapport comment ils ont évolué.</p>
+  </div>
+</section>
+
+<section id="silos" class="reveal">
+  <div class="wrap wide">
+    <div class="narrow">
+      <h2>Les quatre silos</h2>
+      <p>Un silo, c'est deux personnes, un salon Discord, ses propres livrables et sa propre partie du rapport. Chaque silo regroupe plusieurs chantiers. Un chantier est un morceau de travail précis, avec ce qu'il produit et ce qu'on peut commencer tout de suite. La fiche de chaque silo dit aussi avec quels autres silos il échange.</p>
+    </div>
+
+    <div class="silos">
+
+      <article class="silo p-pil" id="pilotage">
+        <div class="head"><h3 class="num"><span aria-hidden="true">🧭</span> Pilotage et communication</h3><span class="pole p-pil">2 personnes</span></div>
+        <p class="mission">Ce silo tient le planning, fait circuler l'information, assemble le rendu et le raconte. Noé en fait partie.</p>
+        <div class="chantiers">
+          <div class="chantier">
+            <h4>Planning et suivi</h4>
+            <p><b>Livrables.</b> Le planning du semestre avec ses jalons. Le planning du vrai projet avec un réseau PERT et un Gantt. L'OBS et la matrice RACI, tirés de ce plan.</p>
+            <p><b>Premières tâches.</b></p>
+            <ul><li>Ouvrir Trello et le dossier partagé.</li><li>Reporter les jalons de cette page dans Trello.</li></ul>
+          </div>
+          <div class="chantier">
+            <h4>Charte et équipe</h4>
+            <p><b>Livrables.</b> Le résumé des analyses de personnalité et la charte de fonctionnement, que le prof demande en annexe. Le rappel des auto-évaluations à la fin.</p>
+            <p><b>Premières tâches.</b></p>
+            <ul><li>Écrire une première version de la charte à partir des règles de cette page.</li><li>Rassembler les résultats des tests de personnalité.</li></ul>
+          </div>
+          <div class="chantier">
+            <h4>Rendu et communication</h4>
+            <p><b>Livrables.</b> Le rapport assemblé, avec son fil rouge. Le flyer, une page web, et une vidéo si on la fait.</p>
+            <p><b>Premières tâches.</b></p>
+            <ul><li>Préparer le modèle de la fiche d'une page que chaque silo remplira.</li><li>Proposer un fil rouge pour le rapport.</li><li>Esquisser le flyer.</li></ul>
+          </div>
+        </div>
+        <p class="rule">Ce silo soutient Terrain pour la voix vers l'extérieur. Il peut aussi prêter main-forte à Technique sur le prototype.</p>
+        <dl>
+          <dt>Dépend de / alimente</dt>
+          <dd class="links"><span><b>Dépend de</b> tous les silos.</span><span><b>Alimente</b> tous les silos, avec le planning et les décisions.</span></dd>
+          <dt>Profil</dt>
+          <dd>Quelqu'un qui aime relancer, trancher et écrire, et quelqu'un qui a le goût du design.</dd>
+          <dt>Personnes</dt>
+          <dd>2 personnes, dont Noé.</dd>
+        </dl>
+      </article>
+
+      <article class="silo p-tec" id="technique">
+        <div class="head"><h3 class="num"><span aria-hidden="true">📱</span> Technique</h3><span class="pole p-tec">2 personnes</span></div>
+        <p class="mission">Ce silo dit ce qu'un vieux téléphone peut faire comme serveur, le montre sur un petit cluster, et construit le support qui tient les téléphones.</p>
+        <p class="rule"><strong>Ce silo porte la chaîne critique</strong> : faisabilité, puis prototype, puis rack. C'est le silo le plus chargé pour deux personnes. Le prototype reste un bonus. Si le temps manque, le verdict de faisabilité passe avant tout, et Pilotage peut prêter main-forte.</p>
+        <div class="chantiers">
+          <div class="chantier crit">
+            <h4>Faisabilité technique</h4>
+            <p><b>Ce qu'il faut savoir.</b></p>
+            <ul>
+              <li>Quels modèles sont utilisables, et lesquels sont verrouillés.</li>
+              <li>Quel système on y met. Android tel quel avec Termux, une application qui donne un terminal Linux sans droits d'administrateur. LineageOS, une version libre d'Android, disponible pour une liste de modèles. postmarketOS, un système Linux basé sur Alpine Linux, disponible pour moins de modèles.</li>
+              <li>Comment alimenter sans batterie, et comment surveiller le gonflement.</li>
+              <li>Comment brancher le réseau, en Wi-Fi ou avec un adaptateur USB-Ethernet. Ce que donnent la chaleur et la sécurité, et quels services un téléphone peut faire tourner.</li>
+              <li>Comment les téléphones se comparent honnêtement aux vieux serveurs, aux portables et aux composants, la « mine d'or ».</li>
+            </ul>
+            <p><b>Livrables.</b> Une grille de faisabilité avec une ligne par modèle, la comparaison avec le reste du matériel, et <strong>le verdict au jalon go / no-go</strong> : téléphones seuls, ou datacenter mixte.</p>
+            <p><b>Premières tâches.</b></p>
+            <ul>
+              <li>Faire l'inventaire des téléphones de nos tiroirs : marque, modèle, année, état de la batterie.</li>
+              <li>Chercher chaque modèle dans les listes d'appareils de LineageOS et de postmarketOS.</li>
+              <li>Installer Termux sur un téléphone et y lancer un petit serveur web.</li>
+              <li>Lister les risques liés aux batteries et à la chaleur, avec une source pour chacun.</li>
+            </ul>
+          </div>
+          <div class="chantier crit">
+            <h4>Prototype logiciel, en bonus</h4>
+            <p><b>Livrables.</b> Un cluster de quelques téléphones, avec peut-être un vieux portable. Un petit service de démonstration, par exemple une page web. Une surveillance simple. Un tableau de mesures au wattmètre, au repos et sous charge. Des photos ou une courte vidéo.</p>
+            <p><b>Premières tâches.</b></p>
+            <ul>
+              <li>Choisir deux ou trois téléphones dans l'inventaire.</li>
+              <li>Installer un système sur le premier et noter chaque étape.</li>
+              <li>Trouver un wattmètre à prise, à emprunter ou à acheter.</li>
+              <li>Écrire le protocole de mesure : ce qu'on mesure, combien de temps, et dans quel état.</li>
+            </ul>
+          </div>
+          <div class="chantier crit">
+            <h4>Rack imprimé en 3D</h4>
+            <p><b>Livrables.</b> Un modèle paramétrique, où l'on choisit le nombre de téléphones et leurs dimensions. Un plan de l'alimentation, des câbles et de la circulation de l'air. Un rack imprimé et photographié. On propose un rack pour 8 téléphones, un par membre, tirés de nos tiroirs.</p>
+            <p><b>Premières tâches.</b></p>
+            <ul>
+              <li>Mesurer les téléphones de l'inventaire : largeur, épaisseur, position du port USB.</li>
+              <li>Trouver où imprimer à l'école. <span class="vrf">quel fablab : à vérifier</span></li>
+              <li>Dessiner un premier support pour deux téléphones et l'imprimer.</li>
+            </ul>
+          </div>
+        </div>
+        <dl>
+          <dt>Dépend de / alimente</dt>
+          <dd class="links"><span><b>Dépend de</b> Terrain (les appareils qu'on peut obtenir), Business (ce qui est permis).</span><span><b>Alimente</b> Business (les coûts), Terrain (les mesures pour le CO₂), Pilotage.</span></dd>
+          <dt>Profil</dt>
+          <dd>Informatique, systèmes embarqués ou électronique. Linux, réseau, et si possible la CAO ou l'impression 3D.</dd>
+          <dt>Personnes</dt>
+          <dd>2 personnes.</dd>
+        </dl>
+      </article>
+
+      <article class="silo p-ter" id="terrain">
+        <div class="head"><h3 class="num"><span aria-hidden="true">🌍</span> Terrain et marché</h3><span class="pole p-ter">2 personnes</span></div>
+        <p class="mission">Ce silo obtient des réponses vraies du terrain, mesure l'intérêt des gens et des organisations, et décrit l'impact du projet. Il est notre seule voix vers l'extérieur.</p>
+        <div class="chantiers">
+          <div class="chantier">
+            <h4>Contacts et partenariats</h4>
+            <p><b>Livrables.</b> Un modèle de mail relu et validé, en trois variantes : commune et déchetterie, entreprise, Swico. Swico Recycling est le système de reprise sans but lucratif qui couvre notamment les téléphones portables en Suisse. Une fiche de présentation « étudiants MSE HES-SO ». Le tableau de suivi des contacts : quelle entité, quelle personne, quand, envoyé par qui, quelle réponse. Une synthèse des réponses.</p>
+            <p><b>Premières tâches.</b></p>
+            <ul>
+              <li>Ouvrir le tableau de suivi des contacts dans le dossier partagé.</li>
+              <li>Écrire le modèle de mail et le faire relire par Business et par Pilotage.</li>
+              <li>Demander au prof s'il accepterait de soutenir la fiche. <span class="vrf">question ouverte</span></li>
+              <li>Dresser la liste des premières communes et entreprises, sans encore leur écrire.</li>
+            </ul>
+          </div>
+          <div class="chantier">
+            <h4>Étude de marché</h4>
+            <p><b>Livrables.</b> Un questionnaire pour les particuliers : combien de téléphones dorment chez eux, s'ils les donneraient, et ce qu'ils craignent pour leurs données. Un questionnaire pour les organisations : achèteraient-elles du calcul local reconditionné, et pour quel usage ? La diffusion, puis l'analyse. Un tableau des concurrents et des initiatives proches, qui part des deux études citées sur la page de discussion.</p>
+            <p><b>Premières tâches.</b></p>
+            <ul>
+              <li>Écrire les deux questionnaires.</li>
+              <li>Les tester sur trois personnes hors du groupe.</li>
+              <li>Lister les canaux de diffusion.</li>
+            </ul>
+          </div>
+          <div class="chantier">
+            <h4>Impact social et climat</h4>
+            <p><b>Livrables.</b> Une méthode de bilan CO₂, sans aucun chiffre qu'on n'a pas mesuré ou sourcé. Une fiche sur les emplois d'insertion dans la remise en état. Une partie sur l'éthique et le bien commun, à laquelle le prof tient.</p>
+            <p><b>Premières tâches.</b></p>
+            <ul>
+              <li>Lister les sources possibles pour l'empreinte carbone d'un téléphone et d'un serveur.</li>
+              <li>Décrire un poste d'insertion : les tâches, l'encadrement, les compétences acquises.</li>
+            </ul>
+          </div>
+        </div>
+        <p class="rule"><strong>Règle :</strong> une seule voix vers l'extérieur. Aucun mail ne part sans le modèle validé et sans une ligne dans le tableau. On n'écrit jamais deux fois à la même entité.</p>
+        <dl>
+          <dt>Dépend de / alimente</dt>
+          <dd class="links"><span><b>Dépend de</b> Business (ce qu'on peut demander, les données du questionnaire), Technique (les mesures).</span><span><b>Alimente</b> Technique (les appareils), Business (le marché), Pilotage.</span></dd>
+          <dt>Profil</dt>
+          <dd>De l'aisance à l'écrit et au contact, et un regard de sciences sociales. Une personne du travail social y est à sa place.</dd>
+          <dt>Personnes</dt>
+          <dd>2 personnes.</dd>
+        </dl>
+      </article>
+
+      <article class="silo p-bus" id="business">
+        <div class="head"><h3 class="num"><span aria-hidden="true">💼</span> Business, légal et fonds</h3><span class="pole p-bus">2 personnes</span></div>
+        <p class="mission">Ce silo vérifie ce qui est permis, dit ce qu'on vend et ce que ça coûte, et cherche qui pourrait financer le vrai projet.</p>
+        <div class="chantiers">
+          <div class="chantier">
+            <h4>Légal et conformité</h4>
+            <p><b>Les questions à poser.</b></p>
+            <ul>
+              <li>Que dit l'OREA, l'ordonnance sur la restitution, la reprise et l'élimination des appareils électriques et électroniques, sur nos téléphones et leur réutilisation ?</li>
+              <li>Qui est propriétaire d'un appareil donné, ou déposé en déchetterie ?</li>
+              <li>Comment efface-t-on les données des anciens propriétaires de façon sûre, et comment le prouve-t-on ?</li>
+              <li>Que demande la nLPD, la loi sur la protection des données en vigueur depuis le 1<sup>er</sup> septembre 2023, pour nos futurs clients et pour le questionnaire ?</li>
+              <li>Quelles règles valent pour la sécurité électrique et les batteries, et qui répond si un téléphone prend feu ?</li>
+            </ul>
+            <p><b>Premières tâches.</b></p>
+            <ul>
+              <li>Lire l'OREA sur fedlex.admin.ch et les pages de la Confédération sur la nLPD.</li>
+              <li>Écrire pour Terrain une note « ce qu'on a le droit de demander ».</li>
+              <li>Relire le modèle de mail et écrire la mention sur la protection des données du questionnaire.</li>
+            </ul>
+          </div>
+          <div class="chantier">
+            <h4>Modèle d'affaires</h4>
+            <p><b>Livrables.</b> La proposition de valeur et les clients visés. Le budget du vrai projet : collecte, remise en état, électricité, site. La forme juridique et les étapes de création.</p>
+            <p><b>Les formes juridiques à comparer.</b></p>
+            <ul>
+              <li><strong>Association</strong> (art. 60 à 79 CC) : un but idéal, pas de capital minimum.</li>
+              <li><strong>Coopérative</strong> : au moins sept membres, pas de capital minimum, des intérêts économiques ou sociaux communs.</li>
+              <li><strong>Sàrl</strong> : un capital minimum de CHF 20 000. <strong>SA</strong> : CHF 100 000, dont au moins CHF 50 000 libérés.</li>
+            </ul>
+            <p><b>Premières tâches.</b></p>
+            <ul>
+              <li>Écrire la proposition de valeur en une phrase et la tester sur le groupe.</li>
+              <li>Lister les postes de coûts sans chiffres, puis chercher une source pour chacun.</li>
+            </ul>
+          </div>
+          <div class="chantier">
+            <h4>Financement</h4>
+            <p><b>Les pistes</b>, avec des conditions à vérifier pour chacune.</p>
+            <ul>
+              <li><strong>Gebert Rüf Stiftung, First Ventures</strong> soutient des étudiants bachelor et master des HES qui développent une idée d'entreprise.</li>
+              <li><strong>Venture Kick</strong> finance par étapes des startups liées à une haute école suisse, au tout début.</li>
+              <li><strong>Innosuisse, Start-up Coaching</strong> offre du coaching à des startups innovantes, et l'Initial Coaching en est la porte d'entrée.</li>
+              <li><strong>La FIT, Fondation pour l'Innovation Technologique</strong>, accorde dans le canton de Vaud des prêts et des subventions à des projets innovants de Suisse romande.</li>
+              <li><strong>La Fondation Suisse pour le Climat</strong> soutient des PME suisses qui protègent le climat. Ce serait une piste pour plus tard, une fois l'entreprise créée.</li>
+              <li><strong>Un soutien de la HES-SO ou de notre école</strong> à l'entrepreneuriat. <span class="vrf">à vérifier</span></li>
+              <li><strong>Les fonds des communes pour la durabilité, et le financement participatif</strong>, à chercher commune par commune.</li>
+            </ul>
+            <p><b>Livrables et tâches.</b> Un tableau des pistes, avec ce que chacune finance, ses conditions, ses délais et son lien. Un plan de financement par étape. On commence par vérifier chaque piste sur son site officiel et noter les délais.</p>
+          </div>
+        </div>
+        <dl>
+          <dt>Dépend de / alimente</dt>
+          <dd class="links"><span><b>Dépend de</b> Terrain (le marché), Technique (les coûts).</span><span><b>Alimente</b> Technique et Terrain (ce qui est permis), Pilotage.</span></dd>
+          <dt>Profil</dt>
+          <dd>Économie, gestion ou droit, de la rigueur, et de la patience pour les formulaires.</dd>
+          <dt>Personnes</dt>
+          <dd>2 personnes.</dd>
+        </dl>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="equipe" class="reveal">
+  <div class="wrap">
+    <h2>Qui fait quoi</h2>
+    <p>La matrice RACI dit, pour chaque chantier, quel rôle joue chaque silo. Chaque ligne a un seul A, et le A revient au silo qui porte le chantier. Dans un silo de deux, les deux personnes réalisent ensemble, et elles décident entre elles qui répond de chaque chantier.</p>
+    <dl class="keys">
+      <dt><span class="l r">R</span></dt><dd><strong>Réalise.</strong> Le silo fait le travail.</dd>
+      <dt><span class="l a">A</span></dt><dd><strong>Approuve.</strong> Le silo répond du résultat et dit quand c'est fini. Ici, celui qui approuve réalise aussi.</dd>
+      <dt><span class="l c">C</span></dt><dd><strong>Consulté.</strong> On demande son avis avant de décider.</dd>
+      <dt><span class="l i">I</span></dt><dd><strong>Informé.</strong> On le tient au courant du résultat.</dd>
+    </dl>
+
+    <table class="raci">
+      <thead>
+        <tr><th>Chantier</th><th><span class="lg">Pilotage</span><span class="sm" aria-hidden="true">Pil.</span></th><th><span class="lg">Technique</span><span class="sm" aria-hidden="true">Tech.</span></th><th><span class="lg">Terrain</span><span class="sm" aria-hidden="true">Terr.</span></th><th><span class="lg">Business</span><span class="sm" aria-hidden="true">Bus.</span></th></tr>
+      </thead>
+      <tbody>
+        <tr class="grp"><td colspan="5">🧭 Pilotage et communication</td></tr>
+        <tr><td>Planning et suivi</td><td><span class="l a">A·R</span></td><td><span class="l c">C</span></td><td><span class="l c">C</span></td><td><span class="l c">C</span></td></tr>
+        <tr><td>Charte et équipe</td><td><span class="l a">A·R</span></td><td><span class="l c">C</span></td><td><span class="l c">C</span></td><td><span class="l c">C</span></td></tr>
+        <tr><td>Rendu et communication</td><td><span class="l a">A·R</span></td><td><span class="l c">C</span></td><td><span class="l c">C</span></td><td><span class="l c">C</span></td></tr>
+        <tr class="grp"><td colspan="5">📱 Technique</td></tr>
+        <tr><td>Faisabilité</td><td><span class="l i">I</span></td><td><span class="l a">A·R</span></td><td><span class="l c">C</span></td><td><span class="l c">C</span></td></tr>
+        <tr><td>Prototype</td><td><span class="l c">C</span></td><td><span class="l a">A·R</span></td><td><span class="l i">I</span></td><td><span class="l i">I</span></td></tr>
+        <tr><td>Rack 3D</td><td><span class="l i">I</span></td><td><span class="l a">A·R</span></td><td><span class="l i">I</span></td><td><span class="l i">I</span></td></tr>
+        <tr class="grp"><td colspan="5">🌍 Terrain et marché</td></tr>
+        <tr><td>Contacts et partenariats</td><td><span class="l c">C</span></td><td><span class="l c">C</span></td><td><span class="l a">A·R</span></td><td><span class="l c">C</span></td></tr>
+        <tr><td>Étude de marché</td><td><span class="l i">I</span></td><td><span class="l i">I</span></td><td><span class="l a">A·R</span></td><td><span class="l c">C</span></td></tr>
+        <tr><td>Impact social et climat</td><td><span class="l c">C</span></td><td><span class="l c">C</span></td><td><span class="l a">A·R</span></td><td><span class="l i">I</span></td></tr>
+        <tr class="grp"><td colspan="5">💼 Business, légal et fonds</td></tr>
+        <tr><td>Légal et conformité</td><td><span class="l i">I</span></td><td><span class="l c">C</span></td><td><span class="l c">C</span></td><td><span class="l a">A·R</span></td></tr>
+        <tr><td>Modèle d'affaires</td><td><span class="l c">C</span></td><td><span class="l c">C</span></td><td><span class="l c">C</span></td><td><span class="l a">A·R</span></td></tr>
+        <tr><td>Financement</td><td><span class="l c">C</span></td><td><span class="l i">I</span></td><td><span class="l i">I</span></td><td><span class="l a">A·R</span></td></tr>
+      </tbody>
+    </table>
+    <p>Pilotage est consulté sur le prototype, parce qu'il peut y prêter main-forte. Il est consulté sur les contacts, parce qu'il soutient la voix vers l'extérieur.</p>
+  </div>
+</section>
+
+<section id="dependances" class="reveal">
+  <div class="wrap">
+    <h2>Les dépendances entre silos</h2>
+    <p>Un silo ne peut pas toujours avancer tant qu'un autre n'a pas livré. Le schéma montre ces liens, comme un petit réseau PERT. À l'intérieur de Technique, la chaîne en rouge est la chaîne critique : si le verdict de faisabilité prend du retard, le prototype et le rack prennent le même retard.</p>
+
+    <figure>
+      <svg class="dep-narrow" viewBox="0 0 360 420" role="img" aria-label="Dépendances : Terrain alimente Technique avec les appareils et Business avec le marché. Business alimente Technique avec ce qui est permis. Dans Technique, la chaîne critique va de la faisabilité au prototype puis au rack. Tous les silos alimentent Pilotage." font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+        <defs>
+          <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#1c1f24"/></marker>
+          <marker id="ahr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#d52b1e"/></marker>
+        </defs>
+        <rect x="20" y="10" width="150" height="56" rx="10" fill="#fff" stroke="#1c1f24" stroke-width="2"/>
+        <text x="95" y="44" text-anchor="middle" font-size="18" font-weight="700">Terrain</text>
+        <rect x="190" y="10" width="150" height="56" rx="10" fill="#fff" stroke="#1c1f24" stroke-width="2"/>
+        <text x="265" y="44" text-anchor="middle" font-size="18" font-weight="700">Business</text>
+        <path d="M170 38 H188" stroke="#1c1f24" stroke-width="2.2" fill="none" marker-end="url(#ah2)"/>
+        <text x="180" y="86" text-anchor="middle" font-size="13" fill="#5d636b">marché</text>
+        <path d="M95 66 V116" stroke="#1c1f24" stroke-width="2.2" fill="none" marker-end="url(#ah2)"/>
+        <text x="87" y="98" text-anchor="end" font-size="13" fill="#5d636b">appareils</text>
+        <path d="M265 66 V116" stroke="#1c1f24" stroke-width="2.2" fill="none" marker-end="url(#ah2)"/>
+        <text x="257" y="110" text-anchor="end" font-size="13" fill="#5d636b">ce qui est permis</text>
+        <rect x="20" y="120" width="320" height="216" rx="12" fill="#fff" stroke="#1c1f24" stroke-width="2"/>
+        <text x="180" y="148" text-anchor="middle" font-size="18" font-weight="700">Technique</text>
+        <text x="180" y="168" text-anchor="middle" font-size="13" fill="#d52b1e">chaîne critique</text>
+        <g font-size="15" text-anchor="middle">
+          <rect x="80" y="180" width="200" height="38" rx="8" fill="#fff" stroke="#d52b1e" stroke-width="2.5"/>
+          <text x="180" y="204" fill="#d52b1e" font-weight="600">Faisabilité</text>
+          <rect x="80" y="232" width="200" height="38" rx="8" fill="#fff" stroke="#d52b1e" stroke-width="2.5"/>
+          <text x="180" y="256" fill="#d52b1e" font-weight="600">Prototype</text>
+          <rect x="80" y="284" width="200" height="38" rx="8" fill="#fff" stroke="#d52b1e" stroke-width="2.5"/>
+          <text x="180" y="308" fill="#d52b1e" font-weight="600">Rack 3D</text>
+        </g>
+        <g stroke="#d52b1e" stroke-width="2.5" fill="none" marker-end="url(#ahr2)">
+          <path d="M180 218 V230"/><path d="M180 270 V282"/>
+        </g>
+        <g stroke="#1c1f24" stroke-width="2.2" fill="none" marker-end="url(#ah2)">
+          <path d="M20 38 H8 V360"/>
+          <path d="M340 38 H352 V360"/>
+          <path d="M180 336 V360"/>
+        </g>
+        <rect x="4" y="364" width="352" height="50" rx="10" fill="#eceeec" stroke="#1c1f24" stroke-width="2"/>
+        <text x="180" y="395" text-anchor="middle" font-size="18" font-weight="700">Pilotage et communication</text>
+      </svg>
+
+      <svg class="dep-wide" viewBox="0 0 640 344" role="img" aria-label="Dépendances : Terrain alimente Technique avec les appareils et Business avec le marché. Business alimente Technique avec ce qui est permis. Dans Technique, la chaîne critique va de la faisabilité au prototype puis au rack. Tous les silos alimentent Pilotage." font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#1c1f24"/></marker>
+          <marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#d52b1e"/></marker>
+        </defs>
+        <rect x="30" y="20" width="170" height="70" rx="10" fill="#fff" stroke="#1c1f24" stroke-width="2"/>
+        <text x="115" y="62" text-anchor="middle" font-size="20" font-weight="700">Terrain</text>
+        <rect x="30" y="150" width="170" height="70" rx="10" fill="#fff" stroke="#1c1f24" stroke-width="2"/>
+        <text x="115" y="192" text-anchor="middle" font-size="20" font-weight="700">Business</text>
+        <rect x="290" y="20" width="336" height="200" rx="12" fill="#fff" stroke="#1c1f24" stroke-width="2"/>
+        <text x="458" y="56" text-anchor="middle" font-size="20" font-weight="700">Technique</text>
+        <text x="458" y="80" text-anchor="middle" font-size="15" fill="#d52b1e">chaîne critique</text>
+        <g font-size="15" text-anchor="middle" font-weight="600" fill="#d52b1e">
+          <rect x="302" y="118" width="92" height="50" rx="8" fill="#fff" stroke="#d52b1e" stroke-width="2.5"/>
+          <text x="348" y="148">Faisabilité</text>
+          <rect x="418" y="118" width="92" height="50" rx="8" fill="#fff" stroke="#d52b1e" stroke-width="2.5"/>
+          <text x="464" y="148">Prototype</text>
+          <rect x="534" y="118" width="80" height="50" rx="8" fill="#fff" stroke="#d52b1e" stroke-width="2.5"/>
+          <text x="574" y="148">Rack 3D</text>
+        </g>
+        <g stroke="#d52b1e" stroke-width="2.5" fill="none" marker-end="url(#ahr)">
+          <path d="M394 143 H416"/><path d="M510 143 H532"/>
+        </g>
+        <g stroke="#1c1f24" stroke-width="2.2" fill="none" marker-end="url(#ah)">
+          <path d="M200 55 H288"/>
+          <path d="M200 185 H288"/>
+          <path d="M115 90 V148"/>
+          <path d="M30 55 H14 V268"/>
+          <path d="M115 220 V268"/>
+          <path d="M458 220 V268"/>
+        </g>
+        <g font-size="14" fill="#5d636b">
+          <text x="244" y="46" text-anchor="middle">appareils</text>
+          <text x="244" y="170" text-anchor="middle">ce qui est</text>
+          <text x="244" y="208" text-anchor="middle">permis</text>
+          <text x="124" y="124">marché</text>
+        </g>
+        <rect x="6" y="272" width="628" height="58" rx="10" fill="#eceeec" stroke="#1c1f24" stroke-width="2"/>
+        <text x="320" y="308" text-anchor="middle" font-size="20" font-weight="700">Pilotage et communication</text>
+      </svg>
+      <figcaption>En rouge : la chaîne critique, à l'intérieur de Technique.</figcaption>
+    </figure>
+
+    <table class="stack">
+      <thead><tr><th>Lien</th><th>Ce qui passe d'un silo à l'autre</th></tr></thead>
+      <tbody>
+        <tr><td>Terrain → Technique</td><td>Le terrain dit quels appareils on peut vraiment obtenir, et donc lesquels Technique doit étudier.</td></tr>
+        <tr><td>Business → Technique</td><td>Le légal dit ce qui est permis : l'effacement des données, la sécurité électrique, les batteries.</td></tr>
+        <tr><td>Terrain → Business</td><td>L'étude de marché nourrit le modèle d'affaires, et le modèle d'affaires dit combien il faut trouver.</td></tr>
+        <tr><td>Dans Technique</td><td>Le verdict et les modèles retenus permettent de monter le prototype. Le prototype dit quels câbles, quelle alimentation et quelle chaleur le rack doit gérer.</td></tr>
+        <tr><td>Tous → Pilotage</td><td>Chaque silo livre sa partie du rapport et son point du vendredi au pilotage.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="outils" class="reveal">
+  <div class="wrap">
+    <h2>Les outils</h2>
+    <p>On utilise trois outils, et chacun a un seul rôle. On n'en ajoute pas d'autres. Quand une information vit à deux endroits, l'un des deux finit par mentir.</p>
+
+    <div class="tool">
+      <h3>1. Discord, pour parler</h3>
+      <p>Le serveur a six salons, et pas un de plus.</p>
+      <ul class="channels">
+        <li><code>#général</code> : ce qui concerne tout le groupe, et les décisions qui touchent plusieurs silos.</li>
+        <li><code>#onboarding</code> : les deux messages où chacun choisit son silo et sa filière.</li>
+        <li><code>#pilotage-com</code> : le salon du silo Pilotage et communication.</li>
+        <li><code>#technique</code> : le salon du silo Technique.</li>
+        <li><code>#terrain-marché</code> : le salon du silo Terrain et marché.</li>
+        <li><code>#business-légal-fonds</code> : le salon du silo Business, légal et fonds.</li>
+      </ul>
+      <p>Dans #onboarding, chacun réagit à deux messages.</p>
+      <ul>
+        <li><strong>« Ton silo »</strong> : 🧭 Pilotage · 📱 Technique · 🌍 Terrain · 💼 Business.</li>
+        <li><strong>« Ta filière »</strong> : 💻 Computer Science · 📊 Data Science · 🔌 Embedded Systems · 🧱 Génie civil · 🤝 Travail social.</li>
+      </ul>
+      <p>Les rôles sont distribués peu après, à la main. Ils n'arrivent donc pas à l'instant où tu réagis.</p>
+      <p>Teams reste utile pour échanger avec le prof, qui y est déjà.</p>
+    </div>
+
+    <div class="tool">
+      <h3>2. Trello, pour savoir qui fait quoi</h3>
+      <p>Discord n'a pas de vrai tableau des tâches, donc on prend Trello. Un tableau Trello gratuit suffit, et il reste simple pour les membres qui ne sont pas informaticiens. Une carte correspond à une tâche, avec un seul responsable et une date. Les cartes passent par quatre colonnes.</p>
+      <ul class="cols"><li>À faire</li><li>En cours</li><li>Bloqué</li><li>Fait</li></ul>
+      <p><strong>Une tâche qui n'est pas sur le tableau n'existe pas.</strong> Le silo Technique peut en plus utiliser GitHub pour le code et les fichiers 3D.</p>
+    </div>
+
+    <div class="tool">
+      <h3>3. Le dossier partagé, pour les fichiers</h3>
+      <p>Discord n'est pas fait pour ranger des fichiers. On prend donc le OneDrive ou le SharePoint de l'école, ou un Google Drive. Le dossier a un sous-dossier par silo : <code>01_pilotage-com</code>, <code>02_technique</code>, <code>03_terrain-marche</code> et <code>04_business-legal-fonds</code>. Il a aussi <code>00_rendu</code> pour le rapport, le flyer et la vidéo, et <code>00_admin</code> pour la charte, les analyses de personnalité et les procès-verbaux. Le tableau de suivi des contacts vit à la racine, parce que tout le monde doit le consulter avant d'écrire à quelqu'un.</p>
+    </div>
+  </div>
+</section>
+
+<section id="regles" class="reveal">
+  <div class="wrap">
+    <h2>Les règles de fonctionnement</h2>
+    <p>Ces cinq règles iront dans la charte. Elles servent à décider vite sans que personne se sente écarté.</p>
+    <ol class="rules">
+      <li><strong>Chaque silo décide seul dans son périmètre.</strong> Ce qui touche deux silos se décide à la réunion de la semaine. S'il n'y a pas de consensus, Noé tranche.</li>
+      <li><strong>On parle d'une seule voix vers l'extérieur.</strong> C'est le silo Terrain qui écrit, avec Pilotage en appui. Aucun mail ne part sans le modèle validé et sans une ligne dans le tableau des contacts.</li>
+      <li><strong>Chaque silo poste un point le vendredi dans son salon.</strong> Il tient en trois lignes : ce qui est fait, ce qui vient ensuite, et ce qui bloque.</li>
+      <li><strong>On se réunit 30 minutes par semaine, tous ensemble.</strong> Chaque silo a 3 minutes, et le reste du temps sert aux blocages. Les deux personnes d'un silo se voient quand elles veulent.</li>
+      <li><strong>Ce qui est décidé à l'oral est écrit le jour même.</strong> On l'écrit dans le salon du silo, ou dans #général si la décision touche plusieurs silos. Sinon, la décision n'a pas été prise.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="calendrier" class="reveal">
+  <div class="wrap">
+    <h2>Le calendrier</h2>
+    <p>Les semaines comptent à partir du kickoff, que la frise place fin octobre. Si une étape glisse, on rattrape sur la marge des fêtes, parce que le rendu reste le vendredi 15 janvier 2027.</p>
+
+    <figure>
+      <!-- 26 Oct 2026 = x 30 ; 6.716 px per day ; 15 Jan 2027 = day 81 = x 574 -->
+      <svg class="tl" viewBox="0 -12 600 172" role="img" aria-label="Frise du kickoff fin octobre au rendu du 15 janvier 2027 : démarrage, faisabilité et mails, jalon go / no-go fin novembre, décembre de production, fêtes en marge, rédaction début janvier." font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+        <!-- phases -->
+        <rect x="30" y="64" width="44" height="14" rx="7" fill="#1c1f24" opacity="0.85"/>
+        <rect x="77" y="86" width="172" height="14" rx="7" fill="#5d636b" opacity="0.55"/>
+        <rect x="272" y="64" width="130" height="14" rx="7" fill="#1c1f24" opacity="0.85"/>
+        <rect x="406" y="86" width="88" height="14" rx="7" fill="none" stroke="#5d636b" stroke-width="2" stroke-dasharray="3 4"/>
+        <rect x="500" y="64" width="70" height="14" rx="7" fill="#1c1f24" opacity="0.85"/>
+        <!-- axis -->
+        <path d="M30 120 H584" stroke="#c9ccd0" stroke-width="2"/>
+        <g stroke="#5d636b" stroke-width="2">
+          <path d="M70 114 v12"/><path d="M272 114 v12"/><path d="M480 114 v12"/>
+        </g>
+        <g fill="#5d636b" font-size="15">
+          <text x="70" y="146">Nov</text>
+          <text x="272" y="146">Déc</text>
+          <text x="480" y="146">Jan</text>
+        </g>
+        <!-- kickoff -->
+        <path d="M30 40 L38 48 L30 56 L22 48 Z" fill="#1c1f24"/>
+        <path d="M30 56 V120" stroke="#1c1f24" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text x="20" y="30" fill="#1c1f24" font-size="15">Kickoff</text>
+        <!-- go / no-go -->
+        <path d="M252 40 L260 48 L252 56 L244 48 Z" fill="#1c1f24"/>
+        <path d="M252 56 V120" stroke="#1c1f24" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text x="252" y="30" text-anchor="middle" fill="#1c1f24" font-size="15" font-weight="700">Go / no-go</text>
+        <!-- hand-in -->
+        <path d="M574 30 L584 40 L574 50 L564 40 Z" fill="#d52b1e"/>
+        <path d="M574 50 V120" stroke="#d52b1e" stroke-width="2"/>
+        <circle cx="574" cy="120" r="5" fill="#d52b1e"/>
+        <text x="556" y="12" text-anchor="end" fill="#d52b1e" font-size="15" font-weight="700">Rendu 15.01.2027</text>
+      </svg>
+      <figcaption>Le losange noir du milieu marque le jalon go / no-go de faisabilité. Les fêtes, en pointillé, sont notre marge.</figcaption>
+    </figure>
+
+    <table class="stack">
+      <thead><tr><th>Quand</th><th>Ce qu'on fait</th></tr></thead>
+      <tbody>
+        <tr><td>Semaine 1</td><td>Le kickoff a eu lieu, et chacun a choisi son silo. Chacun fait son test de personnalité, et on écrit une première version de la charte. Chaque silo écrit sa fiche d'une page : objectif, livrables, questions, premières tâches.</td></tr>
+        <tr><td>Semaines 2 et 3</td><td>Technique avance sur la faisabilité. Le questionnaire est prêt, le modèle de mail est validé, et les premiers mails partent.</td></tr>
+        <tr><td>Fin novembre</td><td><strong>Jalon go / no-go de faisabilité</strong> : on part sur des téléphones seuls, ou sur un datacenter mixte. Tous les mails sont partis.</td></tr>
+        <tr><td>Décembre</td><td>On monte le prototype et le rack. On analyse le questionnaire, on fait le budget et le modèle d'affaires, et on trie les pistes de financement.</td></tr>
+        <tr><td>Fêtes</td><td>C'est notre marge.</td></tr>
+        <tr><td>Début janvier</td><td>On gèle le contenu, puis on rédige et on relit. On finit le flyer, et la vidéo si on la fait.</td></tr>
+        <tr><td>Vendredi 15 janvier 2027</td><td><strong>Rendu</strong>, et chacun remplit son auto-évaluation.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="etapes" class="reveal">
+  <div class="wrap">
+    <h2>Les prochaines étapes</h2>
+    <p>Le kickoff est fait. Voici ce qui vient maintenant, dans l'ordre.</p>
+    <ol class="todo">
+      <li>Rejoins le serveur Discord, et réagis aux deux messages de #onboarding : ton silo et ta filière. Ton rôle arrive peu après.</li>
+      <li>Chaque silo écrit sa fiche d'une page et l'épingle dans son salon. La fiche dit l'objectif, les livrables, les questions et les premières tâches.</li>
+      <li>Chacun fait son test de personnalité avant la semaine 2. L'énoncé du prof cite <a class="src" href="https://www.humanmetrics.com/personality">humanmetrics.com/personality</a>.</li>
+      <li>Le silo Pilotage ouvre le tableau Trello et le dossier partagé, et il en poste les liens dans #général.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="questions" class="open reveal">
+  <div class="wrap">
+    <h2>Questions encore ouvertes</h2>
+    <ul>
+      <li>Le dossier partagé va-t-il sur le OneDrive de l'école ou sur un Google Drive ?</li>
+      <li>Combien de téléphones met-on dans le prototype ?</li>
+      <li>Qui a déjà de l'expérience en impression 3D, en Linux embarqué, en droit ou en finance ?</li>
+      <li>Rend-on un PDF seul, ou un PDF avec une vidéo et un flyer ?</li>
+      <li>Faut-il présenter au prof l'organisation qu'on a choisie ?</li>
+    </ul>
+    <div class="yours"><span>Ta question :</span><span class="fill" aria-hidden="true"></span></div>
+    <div class="yours-extra" aria-hidden="true"></div>
+  </div>
+</section>
+
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Noé Berdoz</strong> · Écris-moi sur Teams.</p>
+    <p>Gestion de projet avancée (Vincent Bourquin) · MSE HES-SO · 2026-27</p>
+    <p>Page pitch : <a href="../">noeberdoz.github.io/swiss-smartphone-datacenter</a></p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var d = document.documentElement;
+    // Highlight the nav link of the section in view
+    var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+    var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    function mark() {
+      var y = (window.innerHeight || d.clientHeight) * 0.3, cur = -1;
+      secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top < y) cur = i; });
+      links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+    }
+    window.addEventListener('scroll', function () { requestAnimationFrame(mark); }, { passive: true });
+    mark();
+
+    if (!d.classList.contains('motion')) { window.pageReady = true; return; }
+    var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+    var ticking = false;
+    function check() {
+      ticking = false;
+      var limit = (window.innerHeight || d.clientHeight) * 0.96;
+      items = items.filter(function (el) {
+        if (el.getBoundingClientRect().top < limit) { el.classList.add('in'); return false; }
+        return true;
+      });
+      if (!items.length) { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); }
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(check); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    check();
+    window.addEventListener('beforeprint', function () { d.classList.remove('motion'); });
+    window.pageReady = true;
+  })();
+</script>
+</body>
+</html>

@@ -349,9 +349,51 @@
     .art { height: auto; }
     .art > svg { height: auto; max-height: 60svh; }
   }
+
+  .site {
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 12px);
+    right: var(--gutter);
+    z-index: 3;
+  }
+  .site ul {
+    display: flex;
+    gap: 2px;
+    list-style: none;
+    margin: 0;
+    padding: 3px;
+    background: rgba(251, 251, 249, 0.88);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+  .site a {
+    display: block;
+    padding: 6px 12px;
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .site a:hover { color: var(--ink); }
+  .site a[aria-current="page"] { background: var(--ink); color: var(--paper); }
+  @media (max-width: 800px) {
+    .brand span { display: none; }
+    .site a { padding: 6px 10px; font-size: 0.8rem; }
+  }
 </style>
 </head>
 <body>
+
+<nav class="site" aria-label="Pages du projet">
+  <ul>
+    <li><a href="./" aria-current="page">Pitch</a></li>
+    <li><a href="discussion/">Discussion</a></li>
+    <li><a href="organisation/">Organisation</a></li>
+  </ul>
+</nav>
 
 <div class="brand" aria-hidden="true">
   <svg viewBox="0 0 32 32"><rect width="32" height="32" rx="3" fill="#d52b1e"/><path d="M13 6h6v7h7v6h-7v7h-6v-7H6v-6h7z" fill="#ffffff"/></svg>

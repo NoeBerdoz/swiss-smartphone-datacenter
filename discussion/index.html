@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Swiss Smartphone Datacenter · discussion</title>
+<meta name="description" content="Swiss Smartphone Datacenter : support de discussion avant de former le groupe, Gestion de projet avancée, MSE HES-SO 2026-27.">
+<script>
+  (function (d) {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    d.classList.add('motion');
+    setTimeout(function () { if (!window.pageReady) d.classList.remove('motion'); }, 2000);
+  })(document.documentElement);
+</script>
+<style>
+  :root {
+    --paper: #fbfbf9;
+    --ink: #1c1f24;
+    --muted: #5d636b;
+    --line: #c9ccd0;
+    --soft: #eceeec;
+    --red: #d52b1e;
+    --green: #2f8f5b;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --gutter: 16px;
+    --measure: 44rem;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html {
+    background: var(--paper);
+    font-size: clamp(16px, 0.42vw + 13px, 21px);
+  }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-wrap: break-word;
+  }
+  .wrap {
+    max-width: calc(var(--measure) + 2 * var(--gutter));
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  @media (min-width: 700px) { :root { --gutter: 32px; } }
+
+  a { color: var(--ink); text-decoration-color: var(--red); text-underline-offset: 0.18em; text-decoration-thickness: 1.5px; }
+  a:hover { color: var(--red); }
+  strong { font-weight: 650; }
+  p { margin: 0 0 1em; }
+  ul { margin: 0 0 1em; padding-left: 1.2em; }
+  li { margin: 0 0 0.55em; }
+  li::marker { color: var(--muted); }
+
+  /* Header */
+  header.top { padding: 2.2rem 0 1.6rem; border-bottom: 1px solid var(--line); }
+  .brand {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-size: 0.95rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .brand svg { width: 2.4rem; height: 2.4rem; flex: none; }
+  .brand .dc { color: var(--red); }
+  .kicker { margin: 0.9rem 0 0; color: var(--muted); font-size: 0.85rem; }
+  .badge {
+    display: inline-block; margin-top: 0.9rem;
+    padding: 0.2rem 0.65rem; border: 1px solid var(--line); border-radius: 999px;
+    font-size: 0.78rem; color: var(--muted); background: #fff;
+  }
+  h1 {
+    margin: 1.6rem 0 0.8rem;
+    font-size: clamp(1.6rem, 3.2vw + 0.6rem, 2.3rem);
+    line-height: 1.2; font-weight: 700; letter-spacing: -0.01em;
+  }
+  .lead { font-size: 1.05rem; color: var(--ink); max-width: 38rem; }
+
+  /* Sections */
+  section { padding: 2.4rem 0 0.6rem; }
+  section + section { border-top: 1px solid var(--soft); }
+  h2 {
+    margin: 0 0 1rem;
+    font-size: 1.35rem; line-height: 1.25; font-weight: 700;
+  }
+  h2::before {
+    content: ""; display: block; width: 1.6rem; height: 3px; background: var(--red);
+    margin-bottom: 0.7rem; border-radius: 2px;
+  }
+  h3 { margin: 1.6rem 0 0.6rem; font-size: 1.05rem; line-height: 1.3; font-weight: 650; }
+
+  /* Figures */
+  figure { margin: 1.6rem 0 1.8rem; }
+  figure svg { display: block; width: 100%; height: auto; }
+  figure.steps svg { max-width: 30rem; margin: 0 auto; }
+  @media (max-width: 560px) { .tl text { font-size: 22px; } }
+  figcaption { margin-top: 0.6rem; font-size: 0.85rem; color: var(--muted); text-align: center; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 0.4rem 0 1.4rem; font-size: 0.92rem; }
+  th, td { text-align: left; vertical-align: top; padding: 0.65rem 0.7rem 0.65rem 0; border-bottom: 1px solid var(--soft); }
+  th { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
+  td:first-child { font-weight: 600; width: 34%; }
+  @media (max-width: 560px) {
+    thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    table, tbody, tr, td { display: block; width: 100%; }
+    tr { padding: 0.7rem 0; border-bottom: 1px solid var(--soft); }
+    td { border: 0; padding: 0; }
+    td:first-child { width: auto; margin-bottom: 0.2rem; }
+  }
+
+  /* Levels */
+  .level { margin: 1.2rem 0; padding: 1rem 1.1rem 0.3rem; border-radius: 12px; }
+  .level h3 { margin-top: 0; }
+  .level.l1 { background: var(--soft); border: 2px solid var(--ink); }
+  .level.l2 { border: 2px solid var(--ink); background: #fff; }
+  .level.l3 { border: 2px dotted var(--muted); }
+
+  /* Questions */
+  .open { padding-bottom: 2rem; }
+  .open .group { margin: 1.6rem 0 1.8rem; }
+  .open .group > p { margin: 0 0 0.5rem; }
+  .open li { margin-bottom: 0.9rem; }
+  .yours {
+    display: flex; align-items: flex-end; gap: 0.6rem;
+    margin: 2.4rem 0 0.4rem; font-weight: 600;
+  }
+  .yours .fill { flex: 1; border-bottom: 1.5px solid var(--ink); height: 1.2em; }
+  .yours-extra { border-bottom: 1.5px solid var(--line); height: 2.2rem; }
+
+  footer {
+    margin-top: 1.2rem; padding: 1.6rem 0 2.6rem; border-top: 1px solid var(--line);
+    font-size: 0.85rem; color: var(--muted);
+  }
+  footer p { margin: 0 0 0.3rem; }
+  footer strong { color: var(--ink); }
+
+  /* Reveal on scroll: armed only when motion is allowed */
+  html.motion .reveal { opacity: 0; transform: translateY(10px); }
+  html.motion .reveal.in { opacity: 1; transform: none; transition: opacity 320ms cubic-bezier(.16,1,.3,1), transform 320ms cubic-bezier(.16,1,.3,1); }
+  @media (prefers-reduced-motion: reduce) {
+    html.motion .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  @page { size: A4; margin: 16mm 16mm 18mm; }
+  @media print {
+    html { font-size: 10.5pt; background: #fff; }
+    body { background: #fff; }
+    html.motion .reveal, .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .wrap { max-width: none; padding: 0; }
+    header.top { padding-top: 0; }
+    section { padding-top: 1.2rem; break-inside: auto; }
+    h2, h3 { break-after: avoid; break-inside: avoid; }
+    figure, tr, .level, .open .group, .yours { break-inside: avoid; }
+    figure svg { max-height: 62mm; width: auto; max-width: 100%; margin: 0 auto; }
+    .badge, .level.l2 { background: #fff; }
+    a { text-decoration: none; }
+    a.src::after { content: " (" attr(href) ")"; font-size: 0.8em; color: var(--muted); }
+    .open { break-before: page; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  nav.site { border-bottom: 1px solid var(--line); font-size: 0.9rem; }
+  nav.site ul { list-style: none; margin: 0; padding: 0.7rem 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
+  nav.site li { margin: 0; }
+  nav.site a { color: var(--muted); text-decoration: none; }
+  nav.site a:hover { color: var(--ink); }
+  nav.site a[aria-current="page"] { color: var(--ink); font-weight: 600; text-decoration: underline; text-decoration-color: var(--red); text-underline-offset: 4px; }
+  @media print { nav.site { display: none; } }
+</style>
+</head>
+<body>
+
+<nav class="site" aria-label="Pages du projet">
+  <div class="wrap">
+    <ul>
+    <li><a href=".././">Pitch</a></li>
+    <li><a href="../discussion/" aria-current="page">Discussion</a></li>
+    <li><a href="../organisation/">Organisation</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="-190 -62 424 536" aria-hidden="true" stroke-linejoin="round" stroke-linecap="round"><rect x="-172.0" y="0" width="344" height="428" rx="30" fill="none" stroke="#1c1f24" stroke-width="24"/><path d="M-128.0 428 v28" stroke="#1c1f24" stroke-width="24"/><path d="M128.0 428 v28" stroke="#1c1f24" stroke-width="24"/><rect x="-100.0" y="46.0" width="200" height="88" rx="24" fill="#eceeec" stroke="#1c1f24" stroke-width="16"/><path d="M-70.0 73.0 V107.0" stroke="#1c1f24" stroke-width="13"/><circle cx="66.0" cy="90.0" r="13" fill="#2f8f5b"/><rect x="-100.0" y="170.0" width="200" height="88" rx="24" fill="#eceeec" stroke="#1c1f24" stroke-width="16"/><path d="M-70.0 197.0 V231.0" stroke="#1c1f24" stroke-width="13"/><circle cx="66.0" cy="214.0" r="13" fill="#2f8f5b"/><rect x="-100.0" y="294.0" width="200" height="88" rx="24" fill="#eceeec" stroke="#1c1f24" stroke-width="16"/><path d="M-70.0 321.0 V355.0" stroke="#1c1f24" stroke-width="13"/><circle cx="66.0" cy="338.0" r="13" fill="#2f8f5b"/><rect x="112.0" y="-48.0" width="108" height="108" rx="18" fill="#d52b1e" stroke="#fbfbf9" stroke-width="14"/><path d="M155.416 -26.4 H176.584 V-4.584 H198.4 V16.584 H176.584 V38.4 H155.416 V16.584 H133.6 V-4.584 H155.416 Z" fill="#ffffff"/></svg>
+      <span>Swiss Smartphone <span class="dc">Datacenter</span></span>
+    </div>
+    <p class="kicker">Le projet de nos rêves · Gestion de projet avancée · MSE HES-SO 2026-27</p>
+    <span class="badge">Version de discussion · 21.10.2026</span>
+
+    <h1>De vieux téléphones remis au travail comme serveurs, en Suisse.</h1>
+    <p class="lead">Cette page sert à en discuter avant de former le groupe. Elle dit ce qu'on ferait, jusqu'où on pourrait aller et ce qu'on ne sait pas encore. Rien n'est figé.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="idee" class="reveal">
+  <h2>L'idée en trente secondes</h2>
+  <p>Dans nos tiroirs dorment des téléphones qui marchent encore. Un téléphone, c'est un petit ordinateur, avec un processeur, de la mémoire et du réseau. On les récupère auprès d'entreprises, de déchetteries et de particuliers. On les efface, on les teste, puis on les fait tourner ensemble dans une baie, comme un petit datacenter.</p>
+  <p>Il y a quatre raisons de le faire. On produit moins de déchets électroniques. Les données restent en Suisse. On émet moins de CO₂ qu'avec du matériel neuf. Et la collecte et la remise en état créent des emplois ici.</p>
+  <p>Ça a déjà été essayé à petite échelle. <a class="src" href="https://arxiv.org/abs/2110.06870" title="Switzer, Marcano, Kastner, Pannuto, « Junkyard Computing: Repurposing Discarded Smartphones to Minimize Carbon », ASPLOS 2023">À UC San Diego, en 2023</a>, dix vieux smartphones ont fait tourner un réseau social presque aussi vite qu'un gros serveur cloud, avec jusqu'à 19 fois moins de CO₂. <a class="src" href="https://doi.org/10.1109/MPRV.2025.3541558" title="Ngoy et al., « Supporting Sustainable Computing by Repurposing E-Waste Smartphones as Tiny Data Centers », IEEE Pervasive Computing, 2025">À l'Université de Tartu, en 2025</a>, quatre vieux téléphones ont servi de mini-datacenter sous l'eau.</p>
+</section>
+
+<section id="emballage" class="reveal">
+  <h2>Le téléphone, c'est l'emballage</h2>
+  <p>Pour un datacenter, le téléphone n'est pas le meilleur matériel. Un vieux serveur d'entreprise est fait pour tourner jour et nuit. Un vieil ordinateur portable accepte Linux sans résistance. Des barrettes de mémoire et des disques encore bons partent aussi à la benne. La vraie mine d'or, c'est tout ce matériel-là.</p>
+  <p>Mais personne ne se sent concerné par « un vieux serveur ». Tout le monde, en revanche, a un vieux téléphone dans un tiroir. Le téléphone, c'est l'image qu'on comprend en une seconde. C'est notre marque et notre porte d'entrée.</p>
+
+  <figure>
+    <svg viewBox="0 0 640 350" role="img" aria-label="Un téléphone au premier plan ; derrière lui, plus pâles, un serveur en rack, un disque, un ordinateur portable et une barrette de mémoire." stroke-linejoin="round" stroke-linecap="round">
+      <g fill="none" stroke="#5d636b" stroke-width="5" opacity="0.42">
+        <!-- rack server -->
+        <rect x="50" y="34" width="180" height="196" rx="14"/>
+        <rect x="70" y="54" width="140" height="32" rx="7" fill="#eceeec"/>
+        <rect x="70" y="98" width="140" height="32" rx="7" fill="#eceeec"/>
+        <rect x="70" y="142" width="140" height="32" rx="7" fill="#eceeec"/>
+        <rect x="70" y="186" width="140" height="32" rx="7" fill="#eceeec"/>
+        <path d="M70 230 v12 M210 230 v12"/>
+        <!-- disk -->
+        <rect x="78" y="258" width="150" height="80" rx="9" fill="#fbfbf9"/>
+        <circle cx="140" cy="298" r="27"/>
+        <circle cx="140" cy="298" r="5" fill="#5d636b"/>
+        <path d="M205 272 L162 310"/>
+        <!-- laptop -->
+        <rect x="408" y="42" width="190" height="126" rx="10" fill="#fbfbf9"/>
+        <rect x="424" y="58" width="158" height="94" rx="4" fill="#eceeec"/>
+        <path d="M388 178 H618 L634 200 H372 Z" fill="#fbfbf9"/>
+        <!-- RAM stick -->
+        <rect x="400" y="258" width="210" height="48" rx="5" fill="#fbfbf9"/>
+        <rect x="416" y="268" width="28" height="22" rx="2" fill="#eceeec"/>
+        <rect x="456" y="268" width="28" height="22" rx="2" fill="#eceeec"/>
+        <rect x="496" y="268" width="28" height="22" rx="2" fill="#eceeec"/>
+        <rect x="536" y="268" width="28" height="22" rx="2" fill="#eceeec"/>
+        <path d="M410 306 v10 M590 306 v10 M500 306 v10" stroke-width="4"/>
+      </g>
+      <!-- phone, in front -->
+      <g>
+        <rect x="246" y="22" width="148" height="306" rx="26" fill="#fbfbf9" stroke="#1c1f24" stroke-width="9"/>
+        <rect x="262" y="58" width="116" height="228" rx="8" fill="#eceeec"/>
+        <path d="M302 40 H338" stroke="#1c1f24" stroke-width="6" stroke-linecap="round"/>
+        <path d="M300 306 H340" stroke="#1c1f24" stroke-width="6" stroke-linecap="round"/>
+        <g fill="#fbfbf9" stroke="#1c1f24" stroke-width="5">
+          <rect x="280" y="92" width="80" height="36" rx="10"/>
+          <rect x="280" y="154" width="80" height="36" rx="10"/>
+          <rect x="280" y="216" width="80" height="36" rx="10"/>
+        </g>
+        <path d="M294 102 v16 M294 164 v16 M294 226 v16" stroke="#1c1f24" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="344" cy="110" r="6" fill="#2f8f5b"/>
+        <circle cx="344" cy="172" r="6" fill="#2f8f5b"/>
+        <circle cx="344" cy="234" r="6" fill="#2f8f5b"/>
+      </g>
+    </svg>
+    <figcaption>Devant : ce qu'on montre. Derrière : ce qui fait tourner le datacenter.</figcaption>
+  </figure>
+
+  <p>On raconterait donc le projet en deux temps. On commence par les téléphones, parce que c'est ce qui parle aux gens et aux partenaires. On garde la porte ouverte aux serveurs, aux portables et aux composants, parce que c'est ce qui rend le datacenter solide.</p>
+</section>
+
+<section id="prof" class="reveal">
+  <h2>Ce que le prof demande</h2>
+  <p>L'énoncé du 21 octobre 2026 demande une <strong>proposition de projet</strong>. Elle doit rendre l'idée crédible, solide et attractive, et donner envie à des clients, des partenaires ou des investisseurs d'y contribuer.</p>
+  <ul>
+    <li><strong>Le groupe</strong> compte 4 personnes, à une près. Il est interdisciplinaire : au plus deux personnes de la même filière, et le prof souhaite une personne du travail social dans chaque groupe.</li>
+    <li><strong>Chacun fait une analyse de personnalité.</strong> Le groupe en tire une charte de fonctionnement, qui va en annexe.</li>
+    <li><strong>Le rendu</strong> est un PDF d'environ 3 à 5 pages par personne, court et dense. Une vidéo ou un flyer peuvent compléter ou remplacer une partie du rapport.</li>
+    <li><strong>La date de référence</strong> est le vendredi 15 janvier 2027.</li>
+    <li><strong>Le projet compte pour un tiers de la note finale.</strong> Chacun remplit aussi une auto-évaluation.</li>
+    <li><strong>Le prof veut du vrai :</strong> « soyez authentiques et vrais, laissez parler votre individualité ».</li>
+  </ul>
+
+  <h3>Les sept critères, et comment on y répondrait</h3>
+  <table>
+    <thead><tr><th>Critère du prof</th><th>Ce qu'on mettrait dans le rendu</th></tr></thead>
+    <tbody>
+      <tr><td>1. Clarté de l'intention et du scope</td><td>Une phrase d'objectif, et une liste nette de ce qui est dans le projet et de ce qui n'y est pas.</td></tr>
+      <tr><td>2. Les structures</td><td>Un PBS (de quoi est fait le datacenter), un WBS (le travail à faire), un OBS et un RACI (qui fait quoi), et un schéma OPM du parcours d'un appareil.</td></tr>
+      <tr><td>3. L'organisation</td><td>Notre équipe, et l'écosystème autour du projet : communes, déchetteries, entreprises, atelier de remise en état, clients.</td></tr>
+      <tr><td>4. La temporalité</td><td>Le planning du vrai projet, du pilote au premier site, avec un réseau PERT et son chemin critique.</td></tr>
+      <tr><td>5. Le budget et la proposition de valeur</td><td>Ce que coûtent la collecte, la remise en état, l'électricité et le site, et ce que le projet rapporte, en argent et en impact.</td></tr>
+      <tr><td>6. L'envie de participer</td><td>La marque « téléphone », un flyer, et les réponses du terrain.</td></tr>
+      <tr><td>7. La qualité et l'originalité</td><td>De vraies réponses de communes et d'entreprises, un questionnaire, et peut-être un prototype.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="niveaux" class="reveal">
+  <h2>Ce qu'on ferait, en trois niveaux</h2>
+
+  <figure class="steps">
+    <svg viewBox="0 0 600 210" role="img" aria-label="Trois marches : niveau 1 plein, on le fait ; niveau 2 en trait, on le vise ; niveau 3 en pointillé, si le temps le permet." font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+      <rect x="12" y="132" width="180" height="70" rx="10" fill="#1c1f24"/>
+      <rect x="210" y="82" width="180" height="120" rx="10" fill="#fbfbf9" stroke="#1c1f24" stroke-width="4"/>
+      <rect x="408" y="32" width="180" height="170" rx="10" fill="none" stroke="#5d636b" stroke-width="4" stroke-dasharray="2 9" stroke-linecap="round"/>
+      <text x="102" y="164" text-anchor="middle" fill="#fbfbf9" font-size="20" font-weight="700">Niveau 1</text>
+      <text x="102" y="189" text-anchor="middle" fill="#fbfbf9" font-size="18">on le fait</text>
+      <text x="300" y="114" text-anchor="middle" fill="#1c1f24" font-size="20" font-weight="700">Niveau 2</text>
+      <text x="300" y="139" text-anchor="middle" fill="#1c1f24" font-size="18">on le vise</text>
+      <text x="498" y="64" text-anchor="middle" fill="#5d636b" font-size="20" font-weight="700">Niveau 3</text>
+      <text x="498" y="89" text-anchor="middle" fill="#5d636b" font-size="16">si le temps le permet</text>
+    </svg>
+  </figure>
+
+  <div class="level l1">
+    <h3>Niveau 1 · Le socle : le cours</h3>
+    <p>On applique les notions du cours à notre idée : le scope, le cycle de vie, les structures, le planning et le budget. C'est ce qui est noté, et c'est le minimum qu'on vise.</p>
+  </div>
+
+  <div class="level l2">
+    <h3>Niveau 2 · Le terrain : on va demander</h3>
+    <ul>
+      <li><strong>Des mails aux communes et à leurs déchetteries.</strong> Que deviennent les téléphones qu'on leur rapporte ? Pourraient-elles en mettre de côté, et à quelles conditions ?</li>
+      <li><strong>Des mails aux entreprises qui renouvellent leurs téléphones et leurs serveurs.</strong> Qu'en font-elles aujourd'hui ? Seraient-elles prêtes à les donner, ou à faire tourner un service chez nous ?</li>
+      <li><strong>Peut-être Swico</strong>, l'organisme qui gère le recyclage des appareils informatiques et des téléphones en Suisse.</li>
+      <li><strong>Une petite étude de marché</strong>, avec un questionnaire court. Aux particuliers, on demanderait combien de téléphones dorment chez eux, s'ils les donneraient et ce qui les retiendrait. Aux organisations, on demanderait si elles achèteraient du calcul local et reconditionné.</li>
+    </ul>
+    <p>Les réponses, même négatives, sont de la matière vraie pour le rapport. Elles prennent du temps à arriver, donc les mails doivent partir tôt, en novembre au plus tard.</p>
+  </div>
+
+  <div class="level l3">
+    <h3>Niveau 3 · Le bonus : un petit prototype</h3>
+    <p>Si le temps le permet, on fait tourner un petit service, par exemple une page web, sur quelques téléphones de nos tiroirs et un vieux portable. On mesure ce que ça consomme avec un wattmètre. Ça nous donnerait nos propres chiffres. On reste dans un cours de gestion de projet, pas d'électronique, donc le prototype reste un bonus.</p>
+  </div>
+</section>
+
+<section id="calendrier" class="reveal">
+  <h2>Le calendrier</h2>
+  <p>Il y a deux horizons. Notre semestre sert à préparer le projet : le penser, vérifier qu'il tient debout et trouver des appuis. Le rendu, lui, planifie le vrai projet sur plusieurs années.</p>
+
+  <figure>
+    <!-- 20 Oct 2026 = x 30 ; 6.25 px per day ; 15 Jan 2027 = day 87 -->
+    <svg class="tl" viewBox="0 0 600 150" role="img" aria-label="Frise d'octobre à mi-janvier : mails envoyés fin novembre, rendu le 15 janvier 2027." font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+      <!-- phases -->
+      <rect x="61" y="56" width="94" height="14" rx="7" fill="#1c1f24" opacity="0.85"/>
+      <rect x="111" y="78" width="181" height="14" rx="7" fill="#5d636b" opacity="0.55"/>
+      <rect x="292" y="56" width="138" height="14" rx="7" fill="#1c1f24" opacity="0.85"/>
+      <rect x="436" y="78" width="62" height="14" rx="7" fill="none" stroke="#5d636b" stroke-width="2" stroke-dasharray="3 4"/>
+      <rect x="498" y="56" width="74" height="14" rx="7" fill="#1c1f24" opacity="0.85"/>
+      <!-- axis -->
+      <path d="M30 112 H584" stroke="#c9ccd0" stroke-width="2"/>
+      <g stroke="#5d636b" stroke-width="2">
+        <path d="M30 106 v12"/><path d="M105 106 v12"/><path d="M292 106 v12"/><path d="M486 106 v12"/>
+      </g>
+      <g fill="#5d636b" font-size="15">
+        <text x="30" y="138">Oct</text>
+        <text x="105" y="138">Nov</text>
+        <text x="292" y="138">Déc</text>
+        <text x="486" y="138">Jan</text>
+      </g>
+      <!-- milestone: mails sent, end of November -->
+      <path d="M287 40 L295 48 L287 56 L279 48 Z" fill="#1c1f24"/>
+      <path d="M287 56 V112" stroke="#1c1f24" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="287" y="28" text-anchor="middle" fill="#1c1f24" font-size="15">Mails envoyés</text>
+      <!-- milestone: hand-in -->
+      <path d="M574 30 L584 40 L574 50 L564 40 Z" fill="#d52b1e"/>
+      <path d="M574 50 V112" stroke="#d52b1e" stroke-width="2"/>
+      <circle cx="574" cy="112" r="5" fill="#d52b1e"/>
+      <text x="556" y="20" text-anchor="end" fill="#d52b1e" font-size="15" font-weight="700">Rendu 15.01.2027</text>
+    </svg>
+  </figure>
+
+  <table>
+    <thead><tr><th>Quand</th><th>Ce qu'on fait</th></tr></thead>
+    <tbody>
+      <tr><td>Fin octobre → début novembre</td><td>On forme le groupe, on fait les tests de personnalité, on écrit la charte et on fixe le scope.</td></tr>
+      <tr><td>Novembre</td><td>On envoie les mails, on lance le questionnaire et on dessine les structures (PBS, WBS, OPM).</td></tr>
+      <tr><td>Décembre</td><td>On analyse les réponses, on fait le budget et le planning du vrai projet. Le prototype se fait ici, si on le fait.</td></tr>
+      <tr><td>Fêtes</td><td>C'est notre marge.</td></tr>
+      <tr><td>Janvier</td><td>On rédige, on fait le flyer, on relit et on s'auto-évalue. Rendu le vendredi 15 janvier 2027.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="limites" class="reveal">
+  <h2>Les limites, honnêtement</h2>
+  <p>Un datacenter fait seulement de téléphones a de vraies contraintes. On ne les cache pas : elles feront partie du rapport.</p>
+  <ul>
+    <li><strong>Les batteries vieillissent et peuvent gonfler.</strong> Un téléphone branché jour et nuit doit être surveillé, ou alimenté sans sa batterie.</li>
+    <li><strong>Chaque modèle est différent.</strong> Beaucoup de téléphones sont verrouillés, et installer un autre système ne marche que sur une partie des modèles.</li>
+    <li><strong>Il n'y a pas de prise réseau.</strong> Il faut passer par le Wi-Fi ou par un adaptateur USB.</li>
+    <li><strong>Il n'y a pas de ventilateur.</strong> Quand un téléphone chauffe, il ralentit.</li>
+    <li><strong>Les vieux téléphones ne reçoivent plus de mises à jour de sécurité.</strong></li>
+    <li><strong>Un téléphone calcule peu.</strong> Il convient à des tâches légères, pas à l'intelligence artificielle ni au calcul lourd.</li>
+    <li><strong>Gérer des centaines de petits appareils tous différents demande beaucoup de travail.</strong></li>
+    <li><strong>Les données des anciens propriétaires doivent être effacées de façon sûre et vérifiable.</strong> Sans ça, personne ne nous confiera son téléphone.</li>
+    <li><strong>Les appareils rapportés en déchetterie partent dans une filière de recyclage organisée.</strong> On ne sait pas encore si on a le droit de les en sortir.</li>
+  </ul>
+  <p>Il y a aussi nos limites à nous. On a un semestre, pas de financement et pas encore de partenaire.</p>
+  <p>Plusieurs de ces contraintes disparaissent avec un vieux serveur ou un vieux portable. C'est pour ça que l'ouverture au reste du matériel n'est pas un détail.</p>
+</section>
+
+<section id="difficiles" class="reveal">
+  <h2>Les questions difficiles qu'on nous posera</h2>
+  <p>On n'a pas encore les réponses. Le rapport devra les donner.</p>
+  <ul>
+    <li>Pourquoi des téléphones, si un vieux serveur fait mieux le travail ?</li>
+    <li>Remettre un téléphone en état prend du temps. Le calcul qu'il rend vaut-il ce temps ?</li>
+    <li>Qui paie, et qui est le client ?</li>
+    <li>Que fait-on des appareils à la fin de leur seconde vie ?</li>
+    <li>Qu'est-ce qui nous rend crédibles, à quatre étudiants ?</li>
+  </ul>
+</section>
+
+<section id="apports" class="reveal">
+  <h2>Ce que chacun peut y apporter</h2>
+  <ul>
+    <li><strong>Travail social.</strong> Les postes de remise en état peuvent être des emplois d'insertion. Il y a aussi le lien avec les communes et la conception du questionnaire.</li>
+    <li><strong>Ingénierie et informatique.</strong> La faisabilité technique, l'architecture et le prototype.</li>
+    <li><strong>Économie et gestion.</strong> Le budget, l'étude de marché et la proposition de valeur.</li>
+    <li><strong>Toutes les filières.</strong> Le terrain, la rédaction et le flyer. Un regard d'une autre discipline est le bienvenu.</li>
+  </ul>
+</section>
+
+<section id="ouvertes" class="open reveal">
+  <h2>Les questions ouvertes, à discuter ensemble</h2>
+
+  <div class="group">
+    <p><strong>Le périmètre</strong></p>
+    <ul>
+      <li>Téléphones seulement, tout le matériel jeté dès le départ, ou les téléphones d'abord et le reste ensuite ?</li>
+      <li>Si on élargit, garde-t-on le nom « Swiss Smartphone Datacenter » ?</li>
+      <li>Que vend le datacenter, et à qui ?</li>
+    </ul>
+  </div>
+
+  <div class="group">
+    <p><strong>Le terrain</strong></p>
+    <ul>
+      <li>Qui contacte-t-on en premier, et qui écrit les mails ?</li>
+      <li>Le questionnaire vise-t-il les particuliers, les organisations, ou les deux ?</li>
+    </ul>
+  </div>
+
+  <div class="group">
+    <p><strong>La forme et l'organisation</strong></p>
+    <ul>
+      <li>Le rendu est-il un PDF seul, un PDF avec un flyer, ou une vidéo ?</li>
+      <li>À quel rythme se voit-on, et avec quels outils ?</li>
+      <li>Tente-t-on le prototype, ou garde-t-on l'énergie pour le terrain ?</li>
+    </ul>
+  </div>
+
+  <div class="group">
+    <p><strong>L'ambition</strong></p>
+    <ul>
+      <li>Voudrait-on vraiment lancer le projet après le semestre ?</li>
+      <li>Qu'est-ce que tu voudrais en tirer, toi ?</li>
+    </ul>
+  </div>
+
+  <div class="yours"><span>Ta question :</span><span class="fill" aria-hidden="true"></span></div>
+  <div class="yours-extra" aria-hidden="true"></div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Noé Berdoz</strong> · Écris-moi sur Teams.</p>
+    <p>Gestion de projet avancée (Vincent Bourquin) · MSE HES-SO · 2026-27</p>
+    <p>Page pitch : <a href="../">noeberdoz.github.io/swiss-smartphone-datacenter</a></p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var d = document.documentElement;
+    if (!d.classList.contains('motion')) { window.pageReady = true; return; }
+    var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+    var ticking = false;
+    function check() {
+      ticking = false;
+      var limit = (window.innerHeight || d.clientHeight) * 0.96;
+      items = items.filter(function (el) {
+        if (el.getBoundingClientRect().top < limit) { el.classList.add('in'); return false; }
+        return true;
+      });
+      if (!items.length) { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); }
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(check); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    check();
+    window.addEventListener('beforeprint', function () { d.classList.remove('motion'); });
+    window.pageReady = true;
+  })();
+</script>
+</body>
+</html>
