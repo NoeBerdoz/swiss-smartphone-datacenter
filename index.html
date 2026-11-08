@@ -106,12 +106,13 @@
     color: var(--muted);
     font: 600 0.85rem/1 var(--font);
     cursor: pointer;
-    transition: opacity 250ms, color 150ms;
+    transition: opacity 250ms, color 150ms, border-color 400ms;
   }
   .next svg { width: 18px; height: 18px; flex: none; }
   .next:hover { color: var(--ink); }
   .next:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
   .next.off { opacity: 0; pointer-events: none; }
+  .next.alert { border-color: var(--red); }
   @keyframes nudge { 0%, 100% { transform: translateY(-1px); } 50% { transform: translateY(3px); } }
   .motion .next svg { animation: nudge 1.6s var(--ease) infinite; }
 
@@ -928,6 +929,7 @@
     if (active[i]) return;
     active[i] = true;
     shownAt[i] = Date.now();
+    if (i === current) armAlert(); // count from the start of the entrance, also on a replay
     var p = panels[i];
     p.classList.remove('rst');
     void p.offsetWidth;
@@ -952,10 +954,41 @@
   function updateNext() {
     next.classList.toggle('off', current >= panels.length - 1 || !!(timer && !timer.hidden));
   }
+
+  // The hint's outline turns red HINT_WAIT ms after the current panel's entrance has ended,
+  // the entrance being its longest one-shot transition or animation (read from the CSS, once).
+  var HINT_WAIT = 3500;
+  var entrance = [];
+  function entranceEnd(i) {
+    if (entrance[i] !== undefined) return entrance[i];
+    var end = 0;
+    function ms(v) { return v.split(',').map(function (x) { x = x.trim(); return /ms$/.test(x) ? parseFloat(x) : parseFloat(x) * 1000; }); }
+    if (motion) {
+      Array.prototype.forEach.call(panels[i].querySelectorAll('*'), function (el) {
+        var cs = getComputedStyle(el);
+        var d = ms(cs.transitionDelay), u = ms(cs.transitionDuration);
+        u.forEach(function (dur, k) { if (dur > 0) end = Math.max(end, (d[k % d.length] || 0) + dur); });
+        if (cs.animationName !== 'none' && cs.animationIterationCount === '1') {
+          end = Math.max(end, ms(cs.animationDelay)[0] + ms(cs.animationDuration)[0]);
+        }
+      });
+    }
+    return (entrance[i] = end);
+  }
+  var alertTimer = 0;
+  function armAlert() {
+    clearTimeout(alertTimer);
+    next.classList.remove('alert');
+    var i = current;
+    alertTimer = setTimeout(function () { if (current === i) next.classList.add('alert'); }, entranceEnd(i) + HINT_WAIT);
+  }
+
   function setCurrent(i) {
+    var changed = i !== current;
     current = i;
     dots.forEach(function (d, j) { d.setAttribute('aria-current', j === i ? 'true' : 'false'); });
     updateNext();
+    if (changed) armAlert();
   }
 
   function go(i) {
@@ -998,6 +1031,7 @@
     panels.forEach(function (p, i) { activate(i); });
   }
   setCurrent(0);
+  armAlert();
 
   dots.forEach(function (d, i) {
     d.addEventListener('click', function (ev) { ev.preventDefault(); go(i); });
